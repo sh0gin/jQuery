@@ -76,23 +76,43 @@
         {
             $result = false;
             $result = Asists::validateDate($this);
-
+            
             if ($this->mysql->repeat_check("user", "login", $this->login)) {
                 $this->valid_login = "Такой логин уже занят!:) Придумай новый!";
                 $result = true;
             }
+            
             if ($this->mysql->repeat_check("user", "email", $this->email)) {
                 $this->valid_email = "Такой email уже занят!:)";
                 $result = true;
             }
+
             if ($this->password != $this->password_repeat) {
+                // var_dump($this->password, $this->password_repeat);
                 $this->valid_password_repeat = "Пароли не совпадают";
                 $result = true;
             }
-            if (in_array($this->password, ["password", "123456", "admin"])) {
-                $this->valid_password = "Очень известный пароль! Его могут легко взломать! Используйте другой пароль!";
-                $result = true;
-            }
+            
+            echo (json_encode([
+
+                'status' => true,
+                'valid_login' => $this->valid_login,
+                'valid_password' => $this->valid_password,
+                'valid_password_repeat' => $this->valid_password_repeat,
+                'valid_email' => $this->valid_email,
+                'valid_patronymic' => $this->valid_patronymic,
+                'valid_name' => $this->valid_name,
+                'valid_surname' => $this->valid_surname,
+                'login' => $this->login,
+                'password' => $this->password,
+                'password_repeat' => $this->password_repeat,
+                'email' => $this->email,
+                'patronymic' => $this->patronymic,
+                'name' => $this->name,
+                'surname' => $this->surname,
+
+            ]));
+
             return $result;
         }
 

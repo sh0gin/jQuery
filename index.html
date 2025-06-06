@@ -266,7 +266,7 @@
                             <form action="" class="bg-light p-5 contact-form login-form" method="POST">
                                 <div class="form-group">
                                     <input type="text" class="form-control login" placeholder="Your Login"
-                                        name="login">
+                                        name="login" >
                                         <div class="invalid-feedback login-message"></div>
                                 </div>
                                 <div class="form-group">
@@ -326,26 +326,26 @@
 								</div>
 								<div class="form-group">
 									<input type="password" class="form-control password_confirmation" placeholder="Password repeat"
-										name="password_confirmation">
-										<div class="invalid-feedback password_confirmation-message"></div>
+										name="password_repeat" value="">
+										<div class="invalid-feedback password_confirmation-message password_repeat-message"></div>
 								</div>
 
-								<div class="form-group">
+								<!-- <div class="form-group">
                                     <input name="upload_avatar" type="file" id="input_file_avatar" class="field field__file form-control upload_avatar input_avatar input_file">
-                                    <div class="invalid-feedback upload_avatar-message"></div>
-									<label class="field__file-wrapper" for="input_file_avatar">
+                                    <div class="invalid-feedback upload_avatar-message"></div> -->
+									<!-- <label class="field__file-wrapper" for="input_file_avatar">
                                         <div class="field__file-button">Выбрать</div>
                                         <div class="field__file-fake">Выберите аватар</div>
-                                    </label>
-                                    <div><img src="images/avatars/default.jpg" class="img-fluid input_avatar upload_image"/></br></div>
+                                    </label> -->
+                                    <!-- <div><img src="images/avatars/default.jpg" class="img-fluid input_avatar upload_image"/></br></div>
                                     <a href="" class="not-active cancel_image">Очистить выбранное изображение</a></br>
                                     <a href="" class="generate_avatar" >Сгенерировать аватар</a>
-                                    <div class="generate_avatar-message" style="font-size: 12px; font-family: 'Poppins', Arial, sans-serif;"></div>
-                                </div>
+                                    <div class="generate_avatar-message" style="font-size: 12px; font-family: 'Poppins', Arial, sans-serif;"></div> -->
+                                <!-- </div> -->
 
 								<div class="form-group">
 									<div class="form-check">
-										<input name="confirm" class="form-check-input confirm" type="checkbox" id="rules" aria-describedby="invalidCheck3Feedback" value="rules">
+										<input name="confirm" class="form-check-input confirm" type="checkbox" id="rules" aria-describedby="invalidCheck3Feedback" value="rules" checked>
 										<label class="form-check-label" for="rules">
 											Согласие
 										</label>
@@ -353,7 +353,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-                                    <a class="register-btn" href=""><button class="btn btn-primary py-3 px-5">Регистрация</button></a>
+                                    <a  href=""><button class="btn btn-primary py-3 px-5 btn-register">Регистрация</button></a>
                                 </div>
 							</form>
 						</div>

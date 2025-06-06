@@ -20,7 +20,6 @@ require_once "include/header.php";
 						<div class="col-md-12 mb-1">
 							<h2 class="h3">Регистрация</h2>
 						</div>
-
 					</div>
 					<div class="row block-9">
 						<div class="col-lg-6 d-flex">
