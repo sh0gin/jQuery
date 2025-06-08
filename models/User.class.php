@@ -53,8 +53,8 @@
                 }
                 $mas = $this->mysql->select("SELECT date_end from BLOCK where user_id = '{$this->id}' ORDER BY date_start DESC LIMIT 1");
                 if ($mas) {
-                    if ($mas[0]['date_end'] != null){
-                        $end_block = new Datetime ($mas[0]['date_end']);
+                    if ($mas[0]['date_end'] != null) {
+                        $end_block = new Datetime($mas[0]['date_end']);
                     } else {
                         $this->__user_ban = "никогда";
                     }
@@ -62,7 +62,7 @@
                 if (isset($end_block)) {
                     $current_time = new Datetime();
                     $current_time = $current_time->format("U");
-                    $end = $end_block -> format("U");
+                    $end = $end_block->format("U");
                     if ($end - $current_time > 0) {
                         $this->__user_ban = Asists::format_date($end_block);
                     }
@@ -76,12 +76,12 @@
         {
             $result = false;
             $result = Asists::validateDate($this);
-            
+
             if ($this->mysql->repeat_check("user", "login", $this->login)) {
                 $this->valid_login = "Такой логин уже занят!:) Придумай новый!";
                 $result = true;
             }
-            
+
             if ($this->mysql->repeat_check("user", "email", $this->email)) {
                 $this->valid_email = "Такой email уже занят!:)";
                 $result = true;
@@ -92,7 +92,7 @@
                 $this->valid_password_repeat = "Пароли не совпадают";
                 $result = true;
             }
-            
+
             echo (json_encode([
 
                 'status' => true,
@@ -127,15 +127,25 @@
         {
             $result = false;
             // $result = Asists::validateDate($this);
-            if (is_null($this->request->parameter_cleaning($this->login)) || $this->request->parameter_cleaning($this->login)=== "") {
+
+            if (is_null($this->request->parameter_cleaning($this->login)) || $this->request->parameter_cleaning($this->login) === "") {
                 $this->valid_login = "Пустое значение";
                 $result = true;
             }
-            if (is_null($this->request->parameter_cleaning($this->password))|| $this->request->parameter_cleaning($this->login)=== "") {
+            if (is_null($this->request->parameter_cleaning($this->password)) || $this->request->parameter_cleaning($this->login) === "") {
                 $this->valid_password = "Пустое значение";
                 $result = true;
             }
+            if ($result) {
 
+                echo (json_encode([
+                    'status' => true,
+                    'valid_login' => $this->valid_login,
+                    'valid_password' => $this->valid_password,
+                    'login' => $this->login,
+                    'password' => $this->password,
+                ]));
+            }
             return $result;
         }
 
@@ -150,20 +160,56 @@
 
                     if ($this->__user_ban) {
                         $this->valid_login = "Данный пользователь заблокирован. Дата разблокировки: {$this->__user_ban}";
+                        echo (json_encode([
+
+                            'status' => false,
+                            'valid_login' => $this->valid_login,
+                            'valid_password' => $this->valid_password,
+                            'login' => $this->login,
+                            'password' => $this->password,
+
+                        ]));
                         return false;
                     }
                     $this->id = $mas["id"];
                     $this->token = md5($this->id . time());
                     $this->mysql->query("UPDATE user SET token = '{$this->token}' WHERE login = '{$this->login}'");
                     $this->isGuest = false;
+                    echo (json_encode([
 
+                        'status' => true,
+                        'valid_login' => $this->valid_login,
+                        'valid_password' => $this->valid_password,
+                        'login' => $this->login,
+                        'password' => $this->password,
+                        'token' => $this->token,
+
+                    ]));
                     return true;
                 } else {
                     $this->valid_password = "Неверный пароль";
+                    echo json_encode([
+
+                        'status' => false,
+                        'valid_login' => $this->valid_login,
+                        'valid_password' => $this->valid_password,
+                        'login' => $this->login,
+                        'password' => $this->password,
+
+                    ]);
                     return false;
                 }
             }
+
             $this->valid_login = "Пользователя с таким логином нет!";
+            echo (json_encode([
+
+                'status' => false,
+                'valid_login' => $this->valid_login,
+                'valid_password' => $this->valid_password,
+                'login' => $this->login,
+                'password' => $this->password,
+            ]));
             return false;
         }
 
@@ -208,8 +254,7 @@
         public function get_user()
         {
             $result = [];
-            foreach($this->mysql->select("SELECT * FROM USER") as $value)
-            {
+            foreach ($this->mysql->select("SELECT * FROM USER") as $value) {
                 $exam_user = new static($this->request, $this->mysql);
                 $exam_user->identity($value["id"]);
 

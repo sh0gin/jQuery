@@ -122,6 +122,7 @@
         public function login(): bool
         {
             $mas = $this->mysql->select("select * from user where login = '{$this->login}'");
+            printd($mas);
             if ($mas) {
                 $mas = $this->mysql->select("select * from user where login = '{$this->login}'");
                 $mas = $mas[0];

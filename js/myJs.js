@@ -1,11 +1,11 @@
-import { giveInput, registerShow } from "./modules/register.js";
-import { loginShow } from "./modules/login.js";
+import { registerShow, giveInputRegister } from "./modules/register.js";
+import { loginShow,  giveInputLogin } from "./modules/login.js";
 import { aboutShow } from "./modules/about.js";
 import { indexShow } from "./modules/index.js";
 import { blogsShow } from "./modules/blogs.js";
 
 $(() => {
-  registerShow();
+  loginShow();
 
 
   $("body").on("click", ".link", function (e) {
@@ -18,6 +18,7 @@ $(() => {
     switch ($(this).attr("data-section")) {
       case "login":
         loginShow();
+        // $(`#password`).attr("value", "");
         break;
       case "blogs":
         blogsShow();
@@ -27,8 +28,6 @@ $(() => {
         break;
       case "register":
         registerShow();
-
-        
         break;
       case "about":
         aboutShow();
@@ -36,9 +35,8 @@ $(() => {
     }
   });
 
-
-  giveInput();
-
+  giveInputRegister();
+  giveInputLogin();
 });
 // 06.06.2025
 // $('.options-sort').each(() =>

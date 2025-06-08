@@ -45,7 +45,7 @@
 <body>
 
 	<div id="colorlib-page" >
-		<aside id="colorlib-aside" role="complementary" class="js-fullheight">
+		<aside id="colorlib-aside" role="complementary" class="js-fullheight ">
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
 					<li><a class="colorlib-active link" href="" data-section="index">Главная</a></li>
@@ -265,14 +265,14 @@
 						<div class="col-lg-6 d-flex">
                             <form action="" class="bg-light p-5 contact-form login-form" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control login" placeholder="Your Login"
-                                        name="login" >
-                                        <div class="invalid-feedback login-message"></div>
+                                    <input id = 'login' type="text" class="form-control login" placeholder="Your Login"
+                                        name="login" value ="">
+                                        <div class="invalid-feedback login-message login-message-auth"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control password" placeholder="Password"
-                                        name="password">
-                                        <div class="invalid-feedback password-message"></div>
+                                    <input id="password" type="password" class="form-control password" placeholder="Password"
+                                        name="password", value="">
+                                        <div class="invalid-feedback password-message password-message-auth"></div>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary py-3 px-5 login-btn">Вход</button>
@@ -297,37 +297,37 @@
 						<div class="col-lg-6 d-flex">
 							<form action="" class="bg-light p-5 contact-form register-form" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
-									<input type="text" class="form-control name" placeholder= "Your Name" name="name" value="">
-										<div class="invalid-feedback name-message"></div>
+									<input id="name-r" type="text" class="form-control name" placeholder= "Your Name" name="name" value="">
+										<div class="invalid-feedback name-message-reg"></div>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control surname" placeholder="Your Surname" name="surname" value="">
-										<div class="invalid-feedback surname-message"></div>
+									<input id="surname-r" type="text" class="form-control surname" placeholder="Your Surname" name="surname" value="">
+										<div class="invalid-feedback surname-message-reg"></div>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control patronymic" placeholder="Your Patronymic"
+									<input id="patronymic-r" type="text" class="form-control patronymic" placeholder="Your Patronymic"
 										name="patronymic" value="">
-										<div class="invalid-feedback patronymic-message"></div>
+										<div class="invalid-feedback patronymic-message-reg"></div>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control login" placeholder="Your Login"
+									<input id="login-r" patronymictype="text" class="form-control login" placeholder="Your Login"
 										name="login" value="">
-										<div class="invalid-feedback login-message"></div>
+										<div class="invalid-feedback login-message-reg"></div>
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control email" placeholder="Your Email"
+									<input  id="email-r" type="text" class="form-control email" placeholder="Your Email"
 										name="email" value="">
-										<div class="invalid-feedback email-message"></div>
+										<div class="invalid-feedback email-message-reg"></div>
 								</div>
 								<div class="form-group">
-									<input type="password" class="form-control password" placeholder="Password"
+									<input id="password-r" type="password" class="form-control password" placeholder="Password"
 										name="password" value="">
-										<div class="invalid-feedback password-message"></div>
+										<div class="invalid-feedback password-message-reg"></div>
 								</div>
 								<div class="form-group">
-									<input type="password" class="form-control password_confirmation" placeholder="Password repeat"
+									<input id="password_repeat-r" type="password" class="form-control password_confirmation" placeholder="Password repeat"
 										name="password_repeat" value="">
-										<div class="invalid-feedback password_confirmation-message password_repeat-message"></div>
+										<div class="invalid-feedback password_confirmation-message password_repeat-message-reg"></div>
 								</div>
 
 								<!-- <div class="form-group">
