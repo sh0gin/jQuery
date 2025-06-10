@@ -2,7 +2,7 @@ export { getPostOne };
 
 function getPostOne($onePostObject) {
 
-	const el = `<?php<div class="post">
+	const el = `<div class="post">
 								<h1 class="mb-3">${$onePostObject.title}</h1>
 								<div class="meta-wrap">
 									<p class="meta">
@@ -27,5 +27,5 @@ function getPostOne($onePostObject) {
 
 							</div>`;
     return el;
-    
+
 }

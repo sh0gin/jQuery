@@ -11,7 +11,7 @@ function getPosts($onePostObject) {
 									<!-- <img src='avatar.jpg' /> -->
 									<span class="text text-3">login</span>
 									<span><i class="icon-calendar mr-2"></i>${$onePostObject.date}</span>
-									<span><i class="icon-comment2 mr-2"></i>${$onePostObject.comments} Comment</span>
+									<span><i class="icon-comment2 mr-2"></i>${$onePostObject.comments ?? "0"} Comment</span>
 								</p>
 							</div>
 							<p class="mb-4">${$onePostObject.preview}</p>

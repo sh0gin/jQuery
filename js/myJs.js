@@ -7,9 +7,7 @@ import { blogsShow, getHtml, getPost } from "./modules/blogs.js";
 $(() => {
 
   indexShow();
-  getPost()
   getHtml();
-
 
 
   $("body").on("click", ".link", function (e) {
@@ -31,6 +29,7 @@ $(() => {
         break;
       case "blogs":
         blogsShow();
+        getPost();
         $(this).addClass("colorlib-active");
         break;
       case "index":
@@ -51,11 +50,11 @@ $(() => {
         break;
     }
 
+
+  });
     $("body").on("click", ".more-info", function () {
       console.log("info");
     })
-  });
-
   getUserStatus();
   giveInputRegister();
   giveInputLogin();
