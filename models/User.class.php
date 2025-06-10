@@ -45,13 +45,19 @@
 
         public function load($array = null): bool
         {
-
+            
             if (Asists::load($this, $array)) {
 
                 if ($this->isAdmin()) {
                     $this->isAdmin = true;
                 }
+
+                if ($this->token) {
+                    $this->isGuest = false;
+                }
+
                 $mas = $this->mysql->select("SELECT date_end from BLOCK where user_id = '{$this->id}' ORDER BY date_start DESC LIMIT 1");
+
                 if ($mas) {
                     if ($mas[0]['date_end'] != null) {
                         $end_block = new Datetime($mas[0]['date_end']);
@@ -59,6 +65,7 @@
                         $this->__user_ban = "никогда";
                     }
                 }
+
                 if (isset($end_block)) {
                     $current_time = new Datetime();
                     $current_time = $current_time->format("U");
@@ -175,7 +182,7 @@
                     $this->token = md5($this->id . time());
                     $this->mysql->query("UPDATE user SET token = '{$this->token}' WHERE login = '{$this->login}'");
                     $this->isGuest = false;
-                    echo (json_encode([
+                    echo json_encode([
 
                         'status' => true,
                         'valid_login' => $this->valid_login,
@@ -184,7 +191,7 @@
                         'password' => $this->password,
                         'token' => $this->token,
 
-                    ]));
+                    ]);
                     return true;
                 } else {
                     $this->valid_password = "Неверный пароль";

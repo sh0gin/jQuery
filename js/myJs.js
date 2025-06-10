@@ -1,16 +1,24 @@
 import { registerShow, giveInputRegister } from "./modules/register.js";
-import { loginShow,  giveInputLogin } from "./modules/login.js";
+import { loginShow, giveInputLogin, getUserStatus, logout } from "./modules/login.js";
 import { aboutShow } from "./modules/about.js";
 import { indexShow } from "./modules/index.js";
-import { blogsShow } from "./modules/blogs.js";
+import { blogsShow, getHtml, getPost } from "./modules/blogs.js";
 
 $(() => {
-  loginShow();
+
+  indexShow();
+  getPost()
+  getHtml();
+
 
 
   $("body").on("click", ".link", function (e) {
     e.preventDefault();
-    
+
+    $("nav[id=colorlib-main-menu] > ul > li > a").each(function () {
+      $(this).removeClass("colorlib-active");
+    });
+
     $("section").each(function () {
       $(this).addClass("not-active");
     });
@@ -18,23 +26,37 @@ $(() => {
     switch ($(this).attr("data-section")) {
       case "login":
         loginShow();
-        // $(`#password`).attr("value", "");
+        $(this).addClass("colorlib-active"); // подсветка пунктов меню
+        $(`#password`).attr("value", "");
         break;
       case "blogs":
         blogsShow();
+        $(this).addClass("colorlib-active");
         break;
       case "index":
         indexShow();
         break;
       case "register":
         registerShow();
+        $(this).addClass("colorlib-active");
         break;
       case "about":
         aboutShow();
+        $(this).addClass("colorlib-active");
+        break;
+      case "exting":
+        logout();
+        getUserStatus();
+        indexShow();
         break;
     }
+
+    $("body").on("click", ".more-info", function () {
+      console.log("info");
+    })
   });
 
+  getUserStatus();
   giveInputRegister();
   giveInputLogin();
 });

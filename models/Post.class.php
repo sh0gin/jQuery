@@ -36,7 +36,7 @@ class Post
         return Asists::validateDate($this);
     }
 
-    public function load_post($array): void
+    public function load($array): void
     {
         Asists::loadData($this, $array);
     }
@@ -47,7 +47,7 @@ class Post
         if ($id) {
             $mas = $this->user->mysql->select("select * from post where id = '$id'");
 
-            $this->load_post($mas[0]);
+            $this->load($mas[0]);
 
             $this->date = Asists::format_date(new Datetime($this->date));
             $this->comments = $this->user->mysql->select("SELECT COUNT(*) FROM `comment` WHERE post_id = '$id'")[0]['COUNT(*)'];
@@ -94,26 +94,29 @@ class Post
         return Asists::format_date($this->date);
     }
 
-    public function get_post($limit = false, $offset = 0): array
+    public function getPosts($limit = false, $offset = 0): array
     {
-        if ($_SERVER["SCRIPT_NAME"] == "/posts.php") {
-            if ($offset === NULL) {
-                $offset = 0;
-            } else {
-                $offset = ($offset - 1) * 5;
-            }
-        }
+        // if ($_SERVER["SCRIPT_NAME"] == "/posts.php") {
+        //     if ($offset === NULL) {
+        //         $offset = 0;
+        //     } else {
+        //         $offset = ($offset - 1) * 5;
+        //     }
+        // }
 
         if (!$limit) {
             $limit = $this->user->mysql->select('SELECT count(id) FROM POST')[0]["count(id)"];
         }
 
         $result = [];
-        foreach ($this->user->mysql->select("SELECT * FROM POST ORDER BY date DESC Limit $limit OFFSET $offset") as $value) {
+        $request = $this->user->mysql->select("SELECT * FROM POST ORDER BY date DESC Limit $limit OFFSET $offset");
+        foreach ($request as $value) {
             $exam_user = new user($this->request, $this->user->mysql);
             $exam_user->identity($value["autor_id"]);
             $exam_post = new static($exam_user, $this->request, $this->response);
-            $exam_post->findOne($value['id']);
+            //$exam_post->findOne($value['id']);
+            $exam_post->load($value);
+
             $result[] = $exam_post;
         }
         return $result;
@@ -121,7 +124,7 @@ class Post
 
     public function get_post_ten(): array
     {
-        return $this->get_post(10);
+        return $this->getPosts(10);
     }
 
     public function delete_post($id = null): void
