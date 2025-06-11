@@ -9,7 +9,7 @@ function getPosts($onePostObject) {
 							<div class="meta-wrap">
 								<p class="meta">
 									<!-- <img src='avatar.jpg' /> -->
-									<span class="text text-3">login</span>
+									<span class="text text-3">${$onePostObject.user.login}</span>
 									<span><i class="icon-calendar mr-2"></i>${$onePostObject.date}</span>
 									<span><i class="icon-comment2 mr-2"></i>${$onePostObject.comments ?? "0"} Comment</span>
 								</p>

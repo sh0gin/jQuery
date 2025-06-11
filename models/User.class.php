@@ -100,9 +100,9 @@
                 $result = true;
             }
 
-            echo (json_encode([
+            echo json_encode([
 
-                'status' => true,
+                'status' => $result,
                 'valid_login' => $this->valid_login,
                 'valid_password' => $this->valid_password,
                 'valid_password_repeat' => $this->valid_password_repeat,
@@ -118,7 +118,7 @@
                 'name' => $this->name,
                 'surname' => $this->surname,
 
-            ]));
+            ]);
 
             return $result;
         }

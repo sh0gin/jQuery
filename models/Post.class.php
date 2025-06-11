@@ -114,9 +114,8 @@ class Post
             $exam_user = new user($this->request, $this->user->mysql);
             $exam_user->identity($value["autor_id"]);
             $exam_post = new static($exam_user, $this->request, $this->response);
-            //$exam_post->findOne($value['id']);
+            $exam_post->findOne($value['id']);
             $exam_post->load($value);
-
             $result[] = $exam_post;
         }
         return $result;

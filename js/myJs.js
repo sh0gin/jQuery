@@ -2,24 +2,27 @@ import { registerShow, giveInputRegister } from "./modules/register.js";
 import { loginShow, giveInputLogin, getUserStatus, logout } from "./modules/login.js";
 import { aboutShow } from "./modules/about.js";
 import { indexShow } from "./modules/index.js";
-import { blogsShow, getHtml, getPost } from "./modules/blogs.js";
+import { addPost } from "./modules/addPost.js";
+import { usersShow } from "./modules/users.js";
+import { blogsShow, getHtml, getPost, getFullPost } from "./modules/blogs.js";
+import { hideAll } from "./modules/asists.js";
+
 
 $(() => {
-
+  console.log("start")
   indexShow();
-  getHtml();
-
+  getHtml(); // все посты
+  getUserStatus(); // действивя с пользователей
 
   $("body").on("click", ".link", function (e) {
     e.preventDefault();
 
     $("nav[id=colorlib-main-menu] > ul > li > a").each(function () {
       $(this).removeClass("colorlib-active");
+
     });
 
-    $("section").each(function () {
-      $(this).addClass("not-active");
-    });
+    hideAll();
 
     switch ($(this).attr("data-section")) {
       case "login":
@@ -28,9 +31,7 @@ $(() => {
         $(`#password`).attr("value", "");
         break;
       case "blogs":
-        blogsShow();
-        getPost();
-        $(this).addClass("colorlib-active");
+        getFullPost();
         break;
       case "index":
         indexShow();
@@ -43,21 +44,29 @@ $(() => {
         aboutShow();
         $(this).addClass("colorlib-active");
         break;
+      case "users":
+        usersShow();
+        $(this).addClass("colorlib-active");
+        break;
       case "exting":
         logout();
         getUserStatus();
         indexShow();
         break;
+      default:
+        print("defaulst");
     }
-
-
   });
-    $("body").on("click", ".more-info", function () {
-      console.log("info");
-    })
+
+
+  $("a[data-section=post-action]").on("click", function (elem) {
+    hideAll();
+    addPost();
+  });
   getUserStatus();
   giveInputRegister();
   giveInputLogin();
+
 });
 // 06.06.2025
 // $('.options-sort').each(() =>

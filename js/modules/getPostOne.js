@@ -1,6 +1,7 @@
 export { getPostOne };
 
 function getPostOne($onePostObject) {
+	console.log($onePostObject);
 
 	const el = `<div class="post">
 								<h1 class="mb-3">${$onePostObject.title}</h1>
@@ -9,7 +10,7 @@ function getPostOne($onePostObject) {
 										<!-- <img src='avatar.jpg' /> -->
 										<span class="text text-3">${$onePostObject.user.login}</span>
 										<span><i class="icon-calendar mr-2"></i>${$onePostObject.date}</span>
-										<span><i class="icon-comment2 mr-2"></i>${$onePostObject.comment} Comment</span>
+										<span><i class="icon-comment2 mr-2"></i>${$onePostObject.comments ?? "0"} Comment</span>
 									</p>
 								</div>
 								<p>

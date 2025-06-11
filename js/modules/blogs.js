@@ -1,6 +1,8 @@
 import { getPosts } from "./getPosts.js";
-import { getPostOne } from "./getPost.js";
-export { blogsShow, getHtml, getPost };
+import { getPostOne } from "./getPostOne.js";
+import { hideAll } from "./asists.js";
+
+export { blogsShow, getHtml, getPost, getFullPost };
 
 
 function blogsShow() {
@@ -14,33 +16,39 @@ function getHtml() {
 		dataType: "json",
 		// data: $obj,
 		success: function ($response) {
-			// console.log(getPost($response[0]))
 			$response.forEach($value => $(".list-posts").append(getPosts($value)));
 
 		},
 	});
 }
 
+function getFullPost() {
+	blogsShow();
+	$(this).addClass("colorlib-active");
+	$(".btn-custom").on("click", function () {
+		hideAll();
+		let $id_post = $(this).attr("data-id");
+		getPost($id_post);
+	})
+}
 
-function getPost() {
-	let params = new URLSearchParams(document.location.search);
-	let value = params.get('id'); // 'key' – это имя целевого параметра\
+function getPost(id) {
+	// let params = new URLSearchParams(document.location.search);
+	// let value = params.get('id'); // 'key' – это имя целевого параметра\
 
-	if (!value) {
-		console.log('null');
-		return false;
-	}
+	// if (!value) {
+	// 	return false;
+	// }
 
 
 	$.ajax({
 		url: "/getPost.php",
 		method: "POST",
 		dataType: "json",
-		data: { id: value },
+		data: { id: id },
 		success: function ($response) {
-			console.log(getPostOne($response));
 			$(".post").removeClass("not-active");
-			$(".post-content").append(getPostOne($response));
+			$(".post-content").html(getPostOne($response));
 		},
 	});
 }

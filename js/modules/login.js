@@ -18,20 +18,27 @@ function getUserStatus() {
       dataType: "json",
       data: { token: $token },
       success: function ($response) {
-        // console.log(!$response.isAdmin && !$response.isGuest);
+        
         if (!$response.isAdmin && !$response.isGuest) {
           $(".div-creat-post").removeClass("not-active");
+        }
+        if ($response.isAdmin) {
+          $(".users_menu").removeClass("not-active");
+        } else {
+          $(".users_menu").addClass("not-active");
         }
         if ($response.token) {
           $(".identity_user").addClass("not-active");
           $(".exting_user").removeClass("not-active");
-        } 
+          $("a[data-section=exting]").html(`Выход <b>(${$response.login})</b>`);
+        }
       },
     });
   } else {
     $(".div-creat-post").addClass("not-active");
     $(".identity_user").removeClass("not-active");
-          $(".exting_user").addClass("not-active");
+    $(".users_menu").addClass("not-active");
+    $(".exting_user").addClass("not-active");
   }
 }
 function giveInputLogin() {
@@ -55,6 +62,7 @@ function giveInputLogin() {
         if ($response.status) {
           loginHide();
           blogsShow();
+          $("a[data-section=blogs]").addClass("colorlib-active");
           localStorage.setItem("token", $response["token"]);
           getUserStatus();
 
@@ -70,7 +78,6 @@ function giveInputLogin() {
             if ($elem.includes("valid_")) {
               if ($response[$elem]) {
                 $(`input[id='${$elem.slice(6)}']`).addClass("is-invalid");
-
                 $(`.${$elem.slice(6)}-message-auth`).text($response[$elem]);
               }
             } else {
@@ -79,9 +86,6 @@ function giveInputLogin() {
           });
         }
       },
-      // error: function(xhr, status, error) {
-      //     console.error(`Error: ${error}`);
-      // }
     });
   });
 }
